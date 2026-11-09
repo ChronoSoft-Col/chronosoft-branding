@@ -2,7 +2,7 @@
 $ErrorActionPreference = "Stop"
 Add-Type -AssemblyName System.Drawing
 
-$baseDir = "C:\Users\JeanPierreOrtizArang\Documents\PERSONAL\CHRONOSOFT\branding"
+$baseDir = if ($PSScriptRoot) { (Resolve-Path "$PSScriptRoot\..").Path } else { "C:\DEV\chronosoft-branding" }
 $dirs = @(
     "$baseDir\svg",
     "$baseDir\png",
@@ -117,8 +117,10 @@ function New-CSPaths {
     $gp2.CloseFigure()
 
     $matrix = [System.Drawing.Drawing2D.Matrix]::new()
-    $matrix.Translate($OffsetX, $OffsetY)
-    $matrix.Scale($Scale, $Scale)
+    $matrix.Rotate(90)
+    $matrix.Translate(656, 0, [System.Drawing.Drawing2D.MatrixOrder]::Append)
+    $matrix.Scale($Scale, $Scale, [System.Drawing.Drawing2D.MatrixOrder]::Append)
+    $matrix.Translate($OffsetX, $OffsetY, [System.Drawing.Drawing2D.MatrixOrder]::Append)
     $gp1.Transform($matrix)
     $gpSLower.Transform($matrix)
     $gp2.Transform($matrix)
@@ -160,8 +162,8 @@ function Draw-CSMonogram {
     }
     elseif ($Mode -eq "white-gold") {
         $b1 = [System.Drawing.SolidBrush]::new([System.Drawing.Color]::FromArgb(255, 248, 250, 252))
-        $ptA = [System.Drawing.PointF]::new($OffsetX + 450 * $Scale, $OffsetY)
-        $ptB = [System.Drawing.PointF]::new($OffsetX + 820 * $Scale, $OffsetY + 200 * $Scale)
+        $ptA = [System.Drawing.PointF]::new($OffsetX + 656 * $Scale, $OffsetY + 450 * $Scale)
+        $ptB = [System.Drawing.PointF]::new($OffsetX + 456 * $Scale, $OffsetY + 820 * $Scale)
         $b2 = [System.Drawing.Drawing2D.LinearGradientBrush]::new(
             $ptA, $ptB,
             [System.Drawing.Color]::FromArgb(255, 246, 218, 168),
@@ -173,8 +175,8 @@ function Draw-CSMonogram {
     }
     else {
         # 1) Main C-S Ribbon in ChronoSoft Sky Cyan -> Primary Blue -> Deep Ocean Blue
-        $ptStart = [System.Drawing.PointF]::new($OffsetX, $OffsetY + 40 * $Scale)
-        $ptEnd   = [System.Drawing.PointF]::new($OffsetX + 817 * $Scale, $OffsetY + 620 * $Scale)
+        $ptStart = [System.Drawing.PointF]::new($OffsetX + 616 * $Scale, $OffsetY)
+        $ptEnd   = [System.Drawing.PointF]::new($OffsetX + 36 * $Scale, $OffsetY + 817 * $Scale)
         $grad1 = [System.Drawing.Drawing2D.LinearGradientBrush]::new(
             $ptStart, $ptEnd,
             [System.Drawing.Color]::FromArgb(255, 56, 189, 248),  # #38BDF8
@@ -192,8 +194,8 @@ function Draw-CSMonogram {
         $grad1.Dispose()
 
         # 2) Lower S tail directional gold transition (strictly inside $gpSLower, reaching alpha=0 well before y=464!)
-        $ptGoldA = [System.Drawing.PointF]::new($OffsetX + 430 * $Scale, $OffsetY + 630 * $Scale)
-        $ptGoldB = [System.Drawing.PointF]::new($OffsetX + 830 * $Scale, $OffsetY + 450 * $Scale)
+        $ptGoldA = [System.Drawing.PointF]::new($OffsetX + 26 * $Scale, $OffsetY + 430 * $Scale)
+        $ptGoldB = [System.Drawing.PointF]::new($OffsetX + 206 * $Scale, $OffsetY + 830 * $Scale)
         $gradGoldLower = [System.Drawing.Drawing2D.LinearGradientBrush]::new(
             $ptGoldA, $ptGoldB,
             [System.Drawing.Color]::FromArgb(255, 242, 204, 140),
@@ -214,8 +216,8 @@ function Draw-CSMonogram {
         $gradGoldLower.Dispose()
 
         # 3) Upper S Arch Cap in matching Champagne Gold -> Warm Amber Gradient
-        $pt2Start = [System.Drawing.PointF]::new($OffsetX + 450 * $Scale, $OffsetY)
-        $pt2End   = [System.Drawing.PointF]::new($OffsetX + 815 * $Scale, $OffsetY + 195 * $Scale)
+        $pt2Start = [System.Drawing.PointF]::new($OffsetX + 656 * $Scale, $OffsetY + 450 * $Scale)
+        $pt2End   = [System.Drawing.PointF]::new($OffsetX + 461 * $Scale, $OffsetY + 815 * $Scale)
         $grad2 = [System.Drawing.Drawing2D.LinearGradientBrush]::new(
             $pt2Start, $pt2End,
             [System.Drawing.Color]::FromArgb(255, 246, 218, 168),
@@ -390,28 +392,34 @@ $svgDefs = @"
 "@
 
 $svgIconColor = @"
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-40 -40 897 736" width="1024" height="840">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-40 -40 736 897" width="840" height="1024">
 $svgDefs
-  <path d="$p1SvgPath" fill="url(#cs-blue-grad)" />
-  <path d="$sLowerSvgPath" fill="url(#cs-bottom-gold)" />
-  <path d="$p2SvgPath" fill="url(#cs-top-gold)" />
+  <g transform="translate(656, 0) rotate(90)">
+    <path d="$p1SvgPath" fill="url(#cs-blue-grad)" />
+    <path d="$sLowerSvgPath" fill="url(#cs-bottom-gold)" />
+    <path d="$p2SvgPath" fill="url(#cs-top-gold)" />
+  </g>
 </svg>
 "@
 [System.IO.File]::WriteAllText("$baseDir\svg\chronosoft-icon-color.svg", $svgIconColor, [System.Text.Encoding]::UTF8)
 [System.IO.File]::WriteAllText("$baseDir\svg\favicon.svg", $svgIconColor, [System.Text.Encoding]::UTF8)
 
 $svgIconMonoDark = @"
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-40 -40 897 736" width="1024" height="840">
-  <path d="$p1SvgPath" fill="#0F172A" />
-  <path d="$p2SvgPath" fill="#0F172A" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-40 -40 736 897" width="840" height="1024">
+  <g transform="translate(656, 0) rotate(90)">
+    <path d="$p1SvgPath" fill="#0F172A" />
+    <path d="$p2SvgPath" fill="#0F172A" />
+  </g>
 </svg>
 "@
 [System.IO.File]::WriteAllText("$baseDir\svg\chronosoft-icon-mono-dark.svg", $svgIconMonoDark, [System.Text.Encoding]::UTF8)
 
 $svgIconMonoWhite = @"
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-40 -40 897 736" width="1024" height="840">
-  <path d="$p1SvgPath" fill="#FFFFFF" />
-  <path d="$p2SvgPath" fill="#FFFFFF" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-40 -40 736 897" width="840" height="1024">
+  <g transform="translate(656, 0) rotate(90)">
+    <path d="$p1SvgPath" fill="#FFFFFF" />
+    <path d="$p2SvgPath" fill="#FFFFFF" />
+  </g>
 </svg>
 "@
 [System.IO.File]::WriteAllText("$baseDir\svg\chronosoft-icon-mono-white.svg", $svgIconMonoWhite, [System.Text.Encoding]::UTF8)
@@ -422,7 +430,7 @@ function Get-StackedSvg {
     return @"
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2263 1321" width="2263" height="1321">
 $svgDefs
-  <g transform="translate(723, 128)">
+  <g transform="translate(836, 95) scale(0.90) translate(656, 0) rotate(90)">
     <path d="$p1SvgPath" fill="url(#cs-blue-grad)" />
     <path d="$sLowerSvgPath" fill="url(#cs-bottom-gold)" />
     <path d="$p2SvgPath" fill="url(#cs-top-gold)" />
@@ -442,12 +450,12 @@ function Get-HorizontalSvg {
     return @"
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 680" width="2400" height="680">
 $svgDefs
-  <g transform="translate(80, 78) scale(0.80)">
+  <g transform="translate(140, 87) scale(0.62) translate(656, 0) rotate(90)">
     <path d="$p1SvgPath" fill="url(#cs-blue-grad)" />
     <path d="$sLowerSvgPath" fill="url(#cs-bottom-gold)" />
     <path d="$p2SvgPath" fill="url(#cs-top-gold)" />
   </g>
-  <text x="805" y="458" font-family="'Segoe UI', 'Inter', -apple-system, BlinkMacSystemFont, Roboto, sans-serif" font-weight="700" font-size="292" letter-spacing="-3" fill="$TextColor">Chrono$softSpan</text>
+  <text x="655" y="458" font-family="'Segoe UI', 'Inter', -apple-system, BlinkMacSystemFont, Roboto, sans-serif" font-weight="700" font-size="292" letter-spacing="-3" fill="$TextColor">Chrono$softSpan</text>
 </svg>
 "@
 }
@@ -460,7 +468,7 @@ $svgAvatarDark = @"
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
 $svgDefs
   <rect width="1024" height="1024" rx="224" fill="url(#bg-dark-grad)" />
-  <g transform="translate(152, 231) scale(0.88)">
+  <g transform="translate(223, 152) scale(0.88) translate(656, 0) rotate(90)">
     <path d="$p1SvgPath" fill="url(#cs-blue-grad)" />
     <path d="$sLowerSvgPath" fill="url(#cs-bottom-gold)" />
     <path d="$p2SvgPath" fill="url(#cs-top-gold)" />
@@ -479,7 +487,7 @@ $bgDark  = [System.Drawing.Color]::FromArgb(255, 9, 13, 22)
 foreach ($mode in @("color", "mono-dark", "mono-white", "mono-black")) {
     $bmp = Render-Supersampled -Width 1024 -Height 840 -SS 3 -DrawAction {
         param($g, $ss)
-        Draw-CSMonogram -g $g -OffsetX (42.2 * $ss) -OffsetY (42.8 * $ss) -Scale (1.15 * $ss) -Mode $mode
+        Draw-CSMonogram -g $g -OffsetX (197.1 * $ss) -OffsetY (27.8 * $ss) -Scale (0.96 * $ss) -Mode $mode
     }
     $bmp.Save("$baseDir\png\chronosoft-corto-$mode.png", [System.Drawing.Imaging.ImageFormat]::Png)
     if ($mode -eq "color") {
@@ -498,7 +506,7 @@ foreach ($v in @(
 )) {
     $bmpV = Render-Supersampled -Width 2263 -Height 1321 -SS 2 -DrawAction {
         param($g, $ss)
-        Draw-CSMonogram -g $g -OffsetX (723 * $ss) -OffsetY (128 * $ss) -Scale (1.0 * $ss) -Mode "color"
+        Draw-CSMonogram -g $g -OffsetX (836 * $ss) -OffsetY (95 * $ss) -Scale (0.90 * $ss) -Mode "color"
         Draw-ChronoSoftText -g $g -CenterX (1131.5 * $ss) -TopY (908 * $ss) -EmSize (355 * $ss) -TextMode $v.TextMode
     }
     $bmpV.Save("$baseDir\png\chronosoft-$($v.Name).png", [System.Drawing.Imaging.ImageFormat]::Png)
@@ -520,9 +528,8 @@ foreach ($v in @(
 )) {
     $bmpH = Render-Supersampled -Width 2400 -Height 680 -SS 2 -DrawAction {
         param($g, $ss)
-        # Monogram width: 817 * 0.78 = 637.3, height: 656 * 0.78 = 511.7 -> y = (680 - 511.7)/2 = 84
-        Draw-CSMonogram -g $g -OffsetX (85 * $ss) -OffsetY (84 * $ss) -Scale (0.78 * $ss) -Mode $v.Monogram
-        Draw-ChronoSoftText -g $g -CenterX (795 * $ss) -TopY (215 * $ss) -EmSize (282 * $ss) -TextMode $v.TextMode -AlignLeft $true
+        Draw-CSMonogram -g $g -OffsetX (140 * $ss) -OffsetY (87 * $ss) -Scale (0.62 * $ss) -Mode $v.Monogram
+        Draw-ChronoSoftText -g $g -CenterX (645 * $ss) -TopY (215 * $ss) -EmSize (282 * $ss) -TextMode $v.TextMode -AlignLeft $true
     }
     $bmpH.Save("$baseDir\png\chronosoft-$($v.Name).png", [System.Drawing.Imaging.ImageFormat]::Png)
     Save-JpgHighQuality -TransparentBmp $bmpH -BgColor $v.Bg -OutPath "$baseDir\jpg\chronosoft-$($v.Name).jpg"
@@ -578,7 +585,7 @@ foreach ($theme in @("dark", "light", "gradient")) {
                 $g.FillPath($bgGrad, $clipPath)
                 $bgGrad.Dispose()
 
-                Draw-CSMonogram -g $g -OffsetX (152 * $ss) -OffsetY (231 * $ss) -Scale (0.88 * $ss) -Mode "color"
+                Draw-CSMonogram -g $g -OffsetX (223 * $ss) -OffsetY (152 * $ss) -Scale (0.88 * $ss) -Mode "color"
             }
             elseif ($theme -eq "light") {
                 $bgGrad = [System.Drawing.Drawing2D.LinearGradientBrush]::new(
@@ -589,7 +596,7 @@ foreach ($theme in @("dark", "light", "gradient")) {
                 )
                 $g.FillPath($bgGrad, $clipPath)
                 $bgGrad.Dispose()
-                Draw-CSMonogram -g $g -OffsetX (152 * $ss) -OffsetY (231 * $ss) -Scale (0.88 * $ss) -Mode "color"
+                Draw-CSMonogram -g $g -OffsetX (223 * $ss) -OffsetY (152 * $ss) -Scale (0.88 * $ss) -Mode "color"
             }
             else {
                 $bgGrad = [System.Drawing.Drawing2D.LinearGradientBrush]::new(
@@ -600,7 +607,7 @@ foreach ($theme in @("dark", "light", "gradient")) {
                 )
                 $g.FillPath($bgGrad, $clipPath)
                 $bgGrad.Dispose()
-                Draw-CSMonogram -g $g -OffsetX (152 * $ss) -OffsetY (231 * $ss) -Scale (0.88 * $ss) -Mode "white-gold"
+                Draw-CSMonogram -g $g -OffsetX (223 * $ss) -OffsetY (152 * $ss) -Scale (0.88 * $ss) -Mode "white-gold"
             }
 
             $g.Clip = $oldClip
@@ -638,8 +645,8 @@ foreach ($bTheme in @("dark", "light")) {
             )
             $g.FillRectangle($bgGrad, 0, 0, $w, $h)
             $bgGrad.Dispose()
-            Draw-CSMonogram -g $g -OffsetX (624 * $ss) -OffsetY (145 * $ss) -Scale (0.82 * $ss) -Mode "color"
-            Draw-ChronoSoftText -g $g -CenterX (960 * $ss) -TopY (735 * $ss) -EmSize (210 * $ss) -TextMode "bicolor-white"
+            Draw-CSMonogram -g $g -OffsetX (730 * $ss) -OffsetY (110 * $ss) -Scale (0.70 * $ss) -Mode "color"
+            Draw-ChronoSoftText -g $g -CenterX (960 * $ss) -TopY (730 * $ss) -EmSize (210 * $ss) -TextMode "bicolor-white"
         } else {
             $bgGrad = [System.Drawing.Drawing2D.LinearGradientBrush]::new(
                 [System.Drawing.PointF]::new(0, 0),
@@ -649,8 +656,8 @@ foreach ($bTheme in @("dark", "light")) {
             )
             $g.FillRectangle($bgGrad, 0, 0, $w, $h)
             $bgGrad.Dispose()
-            Draw-CSMonogram -g $g -OffsetX (624 * $ss) -OffsetY (145 * $ss) -Scale (0.82 * $ss) -Mode "color"
-            Draw-ChronoSoftText -g $g -CenterX (960 * $ss) -TopY (735 * $ss) -EmSize (210 * $ss) -TextMode "bicolor-dark"
+            Draw-CSMonogram -g $g -OffsetX (730 * $ss) -OffsetY (110 * $ss) -Scale (0.70 * $ss) -Mode "color"
+            Draw-ChronoSoftText -g $g -CenterX (960 * $ss) -TopY (730 * $ss) -EmSize (210 * $ss) -TextMode "bicolor-dark"
         }
     }
     $bmpBan.Save("$baseDir\png\chronosoft-banner-$bTheme-1920x1080.png", [System.Drawing.Imaging.ImageFormat]::Png)
@@ -661,7 +668,7 @@ foreach ($bTheme in @("dark", "light")) {
 # --- 3F. THERMAL TICKET LOGOS (ESC/POS 58mm & 80mm) ---
 $bmpTicketStacked = Render-Supersampled -Width 400 -Height 227 -SS 4 -DrawAction {
     param($g, $ss)
-    Draw-CSMonogram -g $g -OffsetX (118 * $ss) -OffsetY (2 * $ss) -Scale (0.20 * $ss) -Mode "mono-black"
+    Draw-CSMonogram -g $g -OffsetX (146 * $ss) -OffsetY (8 * $ss) -Scale (0.165 * $ss) -Mode "mono-black"
     Draw-ChronoSoftText -g $g -CenterX (200 * $ss) -TopY (152 * $ss) -EmSize (65 * $ss) -TextMode "black"
 }
 $bmpTicketStacked.Save("$baseDir\thermal-ticket\chronosoft-ticket-logo.png", [System.Drawing.Imaging.ImageFormat]::Png)
@@ -671,8 +678,8 @@ $bmpTicketStacked.Dispose()
 
 $bmpTicketHoriz = Render-Supersampled -Width 384 -Height 110 -SS 4 -DrawAction {
     param($g, $ss)
-    Draw-CSMonogram -g $g -OffsetX (10 * $ss) -OffsetY (12 * $ss) -Scale (0.132 * $ss) -Mode "mono-black"
-    Draw-ChronoSoftText -g $g -CenterX (128 * $ss) -TopY (32 * $ss) -EmSize (43.5 * $ss) -TextMode "black" -AlignLeft $true
+    Draw-CSMonogram -g $g -OffsetX (20 * $ss) -OffsetY (12 * $ss) -Scale (0.105 * $ss) -Mode "mono-black"
+    Draw-ChronoSoftText -g $g -CenterX (105 * $ss) -TopY (32 * $ss) -EmSize (43.5 * $ss) -TextMode "black" -AlignLeft $true
 }
 $bmpTicketHoriz.Save("$baseDir\thermal-ticket\chronosoft-ticket-horizontal.png", [System.Drawing.Imaging.ImageFormat]::Png)
 Save-JpgHighQuality -TransparentBmp $bmpTicketHoriz -BgColor $bgWhite -OutPath "$baseDir\thermal-ticket\chronosoft-ticket-horizontal.jpg"
@@ -736,16 +743,19 @@ function Save-MultiSizeIco {
 
 $bmpFavTrans = Render-Supersampled -Width 256 -Height 256 -SS 4 -DrawAction {
     param($g, $ss)
-    Draw-CSMonogram -g $g -OffsetX (7.1 * $ss) -OffsetY (30.9 * $ss) -Scale (0.296 * $ss) -Mode "color"
+    $sc = (256.0 * 0.92) / 817.0
+    $ox = (256.0 - (656.0 * $sc)) / 2.0
+    $oy = (256.0 - (817.0 * $sc)) / 2.0
+    Draw-CSMonogram -g $g -OffsetX ($ox * $ss) -OffsetY ($oy * $ss) -Scale ($sc * $ss) -Mode "color"
 }
 Save-MultiSizeIco -SourceBmp256 $bmpFavTrans -OutIcoPath "$baseDir\ico\favicon.ico"
 Save-MultiSizeIco -SourceBmp256 $bmpFavTrans -OutIcoPath "$baseDir\compat\favicon.ico"
 foreach ($fSz in @(16, 32, 48, 64, 180, 192, 512)) {
     $fb = Render-Supersampled -Width $fSz -Height $fSz -SS 3 -DrawAction {
         param($g, $ss)
-        $sc = ($fSz * 0.945) / 817.0
-        $ox = ($fSz - (817.0 * $sc)) / 2.0
-        $oy = ($fSz - (656.0 * $sc)) / 2.0
+        $sc = ($fSz * 0.92) / 817.0
+        $ox = ($fSz - (656.0 * $sc)) / 2.0
+        $oy = ($fSz - (817.0 * $sc)) / 2.0
         Draw-CSMonogram -g $g -OffsetX ($ox * $ss) -OffsetY ($oy * $ss) -Scale ($sc * $ss) -Mode "color"
     }
     $name = switch ($fSz) {
