@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChronoSoft — Brand Identity & Asset Kit</title>
+  <link rel="icon" type="image/svg+xml" href="./svg/favicon.svg" />
+  <style>
+    :root {
+      --bg: #090d16;
+      --card: #0f172a;
+      --card-border: #1e293b;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --primary: #0284c7;
+      --accent: #38bdf8;
+      --gold: #eaba70;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', 'Inter', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+      background: radial-gradient(circle at 15% 0%, #0c233e 0%, var(--bg) 45%);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: 5rem;
+    }
+    header {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .hero-brand {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+    .hero-brand img {
+      height: 56px;
+      width: auto;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+    }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin: 2.5rem 0 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    p.section-sub {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 1.25rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.25rem;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 1rem;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.18s ease, border-color 0.18s ease;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+    .preview {
+      height: 210px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.75rem;
+      position: relative;
+    }
+    .preview.bg-dark-grid {
+      background-color: #090d16;
+      background-image:
+        linear-gradient(45deg, #111827 25%, transparent 25%),
+        linear-gradient(-45deg, #111827 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #111827 75%),
+        linear-gradient(-45deg, transparent 75%, #111827 75%);
+      background-size: 20px 20px;
+      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    }
+    .preview.bg-light-grid {
+      background-color: #ffffff;
+      background-image:
+        linear-gradient(45deg, #f1f5f9 25%, transparent 25%),
+        linear-gradient(-45deg, #f1f5f9 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #f1f5f9 75%),
+        linear-gradient(-45deg, transparent 75%, #f1f5f9 75%);
+      background-size: 20px 20px;
+      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    }
+    .preview.bg-paper {
+      background: #fafafa;
+      border-bottom: 2px dashed #cbd5e1;
+    }
+    .preview img {
+      max-width: 100%;
+      max-height: 155px;
+      object-fit: contain;
+    }
+    .card-body {
+      padding: 1rem 1.25rem 1.25rem;
+      border-top: 1px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      flex: 1;
+    }
+    .card-title {
+      font-weight: 600;
+      font-size: 0.98rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .card-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: auto;
+      padding-top: 0.4rem;
+    }
+    .btn {
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.35rem 0.65rem;
+      border-radius: 0.45rem;
+      background: #1e293b;
+      color: #e2e8f0;
+      border: 1px solid #334155;
+      transition: all 0.15s;
+    }
+    .btn:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    .swatches {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+      gap: 1rem;
+    }
+    .swatch {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 0.85rem;
+      overflow: hidden;
+    }
+    .swatch-color {
+      height: 68px;
+    }
+    .swatch-info {
+      padding: 0.75rem 1rem;
+      font-size: 0.82rem;
+    }
+    .swatch-info strong {
+      display: block;
+      font-size: 0.9rem;
+    }
+    .swatch-info code {
+      color: var(--accent);
+      font-size: 0.78rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="hero-brand">
+      <img src="./svg/chronosoft-horizontal-bicolor-dark.svg" alt="ChronoSoft Logo" />
+    </div>
+    <div>
+      <span class="badge">Kit Oficial Vectorial + Raster 4x Supersampled</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2>1. Logos Principales Apilados / Verticales (Reemplazo directo BLACK_LOGO / WHITE_LOGO)</h2>
+    <p class="section-sub">Geometría exacta del monograma "CS" redibujada desde cero en curvas Bézier puras, sin bordes pixelados ni halos de recorte.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="preview bg-light-grid">
+          <img src="./png/chronosoft-vertical-light.png" alt="Vertical Light" />
+        </div>
+        <div class="card-body">
+          <div class="card-title">Vertical Claro (BLACK_LOGO) <span>2263×1321</span></div>
+          <div class="card-desc">Para fondos blancos o claros. Incluye copia lista en <code>compat/BLACK_LOGO.png</code>.</div>
+          <div class="links">
+            <a class="btn" href="./svg/chronosoft-stacked-light.svg" download>SVG</a>
+            <a class="btn" href="./png/chronosoft-vertical-light.png" download>PNG Transparente</a>
+            <a class="btn" href="./jpg/chronosoft-vertical-light.jpg" download>JPG Blanco</a>
+            <a class="btn" href="./compat/BLACK_LOGO.png" download>BLACK_LOGO.png</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="preview bg-dark-grid">
+          <img src="./png/chronosoft-vertical-dark.png" alt="Vertical Dark" />
+        </div>
+        <div class="card-body">
+          <div class="card-title">Vertical Oscuro (WHITE_LOGO) <span>2263×1321</span></div>
+          <div class="card-desc">Para fondos oscuros. Texto blanco puro sin artefactos. Copia en <code>compat/WHITE_LOGO.png</code>.</div>
+          <div class="links">
+            <a class="btn" href="./svg/chronosoft-stacked-dark.svg" download>SVG</a>
+            <a class="btn" href="./png/chronosoft-vertical-dark.png" download>PNG Transparente</a>
+            <a class="btn" href="./jpg/chronosoft-vertical-dark.jpg" download>JPG Oscuro</a>
+            <a class="btn" href="./compat/WHITE_LOGO.png" download>WHITE_LOGO.png</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="preview bg-light-grid">
+          <img src="./png/chronosoft-vertical-bicolor-light.png" alt="Vertical Bicolor Light" />
+        </div>
+        <div class="card-body">
+          <div class="card-title">Vertical Bicolor Claro <span>2263×1321</span></div>
+          <div class="card-desc">"Chrono" en Índigo Profundo (<code>#0F172A</code>) y "Soft" en Azul Chrono (<code>#0284C7</code>).</div>
+          <div class="links">
+            <a class="btn" href="./svg/chronosoft-stacked-bicolor-light.svg" download>SVG</a>
+            <a class="btn" href="./png/chronosoft-vertical-bicolor-light.png" download>PNG</a>
+            <a class="btn" href="./jpg/chronosoft-vertical-bicolor-light.jpg" download>JPG</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="preview bg-dark-grid">
+          <img src="./png/chronosoft-vertical-bicolor-dark.png" alt="Vertical Bicolor Dark" />
+        </div>
+        <div class="card-body">
+          <div class="card-title">Vertical Bicolor Oscuro <span>2263×1321</span></div>
+          <div class="card-desc">"Chrono" en Blanco (<code>#F8FAFC</code>) y "Soft" en Cian Eléctrico (<code>#38BDF8</code>).</div>
+          <div class="links">
+            <a class="btn" href="./svg/chronosoft-stacked-bicolor-dark.svg" download>SVG</a>
+            <a class="btn" href="./png/chronosoft-vertical-bicolor-dark.png" download>PNG</a>
+            <a class="btn" href="./jpg/chronosoft-vertical-bicolor-dark.jpg" download>JPG</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2>2. Logos Largos / Horizontales (Headers, Navbars, Facturas y Firmas)</h2>
+    <p class="section-sub">Formato panorámico <code>2400×680</code> ideal para barras de navegación de ChronoPark, ChronoPOS y ChronoFact.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="preview bg-light-grid">
+          <img src="./png/chronosoft-largo-light.png" alt="Largo Light" />
+        </div>
+        <div class="card-body">
+          <div class="card-title">Largo Horizontal Claro <span>2400×680</span></div>
+          <div class="card-desc">Monograma CS + tipografía corporativa en Índigo Profundo.</div>
+          <div class="links">
+            <a class="btn" href="./svg/chronosoft-horizontal-light.svg" download>SVG</a>
+            <a class="btn" href="./png/chronosoft-largo-light.png" download>PNG</a>
+            <a class="btn" href="./jpg/chronosoft-largo-light.jpg" download>JPG</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="preview bg-dark-grid">
+          <img src="./png/chronosoft-largo-dark.png" alt="Largo Dark" />
+        </div>
+        <div class="card-body">
+          <div class="card-title">Largo Horizontal Oscuro <span>2400×680</span></div>
+          <div class="card-desc">Monograma CS + tipografía blanca nítida para modo oscuro.</div>
+          <div class="links">
+            <a class="btn" href="./svg/chronosoft-horizontal-dark.svg" download>SVG</a>
+            <a class="btn" href="./png/chronosoft-largo-dark.png" download>PNG</a>
+            <a class="btn" href="./jpg/chronosoft-largo-dark.jpg" download>JPG</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="preview bg-light-grid">
+          <img src="./png/chronosoft-largo-bicolor-light.png" alt="Largo Bicolor Light" />
+        </div>
+        <div class="card-body">
+          <div class="card-title">Largo Horizontal Bicolor Claro <span>2400×680</span></div>
+          <div class="card-desc">Destaca "Soft" en el azul primario del sistema de diseño.</div>
+          <div class="links">
+            <a class="btn" href="./svg/chronosoft-horizontal-bicolor-light.svg" download>SVG</a>
+            <a class="btn" href="./png/chronosoft-largo-bicolor-light.png" download>PNG</a>
+            <a class="btn" href="./jpg/chronosoft-largo-bicolor-light.jpg" download>JPG</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="preview bg-dark-grid">
+          <img src="./png/chronosoft-largo-bicolor-dark.png" alt="Largo Bicolor Dark" />
+        </div>
+        <div class="card-body">
+          <div class="card-title">Largo Horizontal Bicolor Oscuro <span>2400×680</span></div>
+          <div class="card-desc">Destaca "Soft" en Cian Eléctrico sobre temas oscuros.</div>
+          <div class="links">
+            <a class="btn" href="./svg/chronosoft-horizontal-bicolor-dark.svg" download>SVG</a>
+            <a class="btn" href="./png/chronosoft-largo-bicolor-dark.png" download>PNG</a>
+            <a class="btn" href="./jpg/chronosoft-largo-bicolor-dark.jpg" download>JPG</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2>3. Logo Corto / Isotipo CS & Favicons (.ICO Multi-Resolución)</h2>
+    <p class="section-sub">Símbolo "CS" aislado para sidebars colapsados, iconos de pestaña (16px a 256px), PWA y marcas de agua.</p>
+    <div class="grid-4">
+      <div class="card">
+        <div class="preview bg-dark-grid">
+          <img src="./png/chronosoft-corto-color.png" alt="Corto Color" />
+        </div>
+        <div class="card-body">
+          <div class="card-title">Isotipo Corto Color <span>1024×840</span></div>
+          <div class="card-desc">Degradado Cian/Azul + Acento Ámbar Dorado en terminales de la S.</div>
+          <div class="links">
+            <a class="btn" href="./svg/chronosoft-icon-color.svg" download>SVG</a>
+            <a class="btn" href="./png/chronosoft-corto-color.png" download>PNG</a>
+            <a class="btn" href="./jpg/chronosoft-corto-dark.jpg" download>JPG Dark</a>
+            <a class="btn" href="./jpg/chronosoft-corto-light.jpg" download>JPG Light</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="preview bg-dark-grid">
+          <img src="./ico/android-chrome-512x512.png" alt="Favicon ICO" style="max-height:110px" />
+        </div>
+        <div class="card-body">
+          <div class="card-title">Favicons Web & App (.ICO) <span>16–256px</span></div>
+          <div class="card-desc">Contenedor <code>.ico</code> con 6 capas embebidas (16, 32, 48, 64, 128 y 256 px).</div>
+          <div class="links">
+            <a class="btn" href="./ico/favicon.ico" download>favicon.ico</a>
+            <a class="btn" href="./ico/chronosoft-badge-dark.ico" download>badge-dark.ico</a>
+            <a class="btn" href="./ico/chronosoft-badge-light.ico" download>badge-light.ico</a>
+            <a class="btn" href="./svg/favicon.svg" download>favicon.svg</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="preview bg-light-grid">
+          <img src="./png/chronosoft-corto-mono-dark.png" alt="Corto Mono Dark" />
+        </div>
+        <div class="card-body">
+          <div class="card-title">Isotipo Monocromo Oscuro <span>1024×840</span></div>
+          <div class="card-desc">Versión plana en un solo tono (<code>#0F172A</code>) para papelería y sellos.</div>
+          <div class="links">
+            <a class="btn" href="./svg/chronosoft-icon-mono-dark.svg" download>SVG</a>
+            <a class="btn" href="./png/chronosoft-corto-mono-dark.png" download>PNG</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="preview bg-dark-grid">
+          <img src="./png/chronosoft-corto-mono-white.png" alt="Corto Mono White" />
+        </div>
+        <div class="card-body">
+          <div class="card-title">Isotipo Monocromo Blanco <span>1024×840</span></div>
+          <div class="card-desc">Versión plana en blanco puro (<code>#FFFFFF</code>) para marcas de agua.</div>
+          <div class="links">
+            <a class="btn" href="./svg/chronosoft-icon-mono-white.svg" download>SVG</a>
+            <a class="btn" href="./png/chronosoft-corto-mono-white.png" download>PNG</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2>4. Avatares & App Icons (Cuadrado, Redondeado iOS/Android y Circular)</h2>
+    <p class="section-sub">Listos para WhatsApp Business, GitHub, LinkedIn, Instagram y lanzadores móviles en <code>1024×1024</code> y <code>512×512</code>.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="preview bg-dark-grid">
+          <img src="./avatar/chronosoft-avatar-dark-rounded-512.png" alt="Avatar Dark" />
+        </div>
+        <div class="card-body">
+          <div class="card-title">Avatar Dark Tech <span>1024×1024</span></div>
+          <div class="card-desc">Fondo Índigo Nocturno con halo cian sutil y monograma CS.</div>
+          <div class="links">
+            <a class="btn" href="./avatar/chronosoft-avatar-dark-square-1024.png" download>PNG Cuadrado</a>
+            <a class="btn" href="./avatar/chronosoft-avatar-dark-rounded-1024.png" download>PNG Redondeado</a>
+            <a class="btn" href="./avatar/chronosoft-avatar-dark-circle-1024.png" download>PNG Circular</a>
+            <a class="btn" href="./avatar/chronosoft-avatar-dark-1024.jpg" download>JPG</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="preview bg-light-grid">
+          <img src="./avatar/chronosoft-avatar-light-rounded-512.png" alt="Avatar Light" />
+        </div>
+        <div class="card-body">
+          <div class="card-title">Avatar Light Clean <span>1024×1024</span></div>
+          <div class="card-desc">Fondo blanco/hielo suave para perfiles claros y directorios.</div>
+          <div class="links">
+            <a class="btn" href="./avatar/chronosoft-avatar-light-square-1024.png" download>PNG Cuadrado</a>
+            <a class="btn" href="./avatar/chronosoft-avatar-light-rounded-1024.png" download>PNG Redondeado</a>
+            <a class="btn" href="./avatar/chronosoft-avatar-light-circle-1024.png" download>PNG Circular</a>
+            <a class="btn" href="./avatar/chronosoft-avatar-light-1024.jpg" download>JPG</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="preview bg-dark-grid">
+          <img src="./avatar/chronosoft-avatar-gradient-rounded-512.png" alt="Avatar Gradient" />
+        </div>
+        <div class="card-body">
+          <div class="card-title">Avatar Corporate Gradient <span>1024×1024</span></div>
+          <div class="card-desc">Degradado Azul Chrono a Índigo con monograma blanco y oro.</div>
+          <div class="links">
+            <a class="btn" href="./avatar/chronosoft-avatar-gradient-square-1024.png" download>PNG Cuadrado</a>
+            <a class="btn" href="./avatar/chronosoft-avatar-gradient-rounded-1024.png" download>PNG Redondeado</a>
+            <a class="btn" href="./avatar/chronosoft-avatar-gradient-circle-1024.png" download>PNG Circular</a>
+            <a class="btn" href="./avatar/chronosoft-avatar-gradient-1024.jpg" download>JPG</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2>5. Impresoras Térmicas ESC/POS (58mm y 80mm — Pie y Cabecera de Tickets)</h2>
+    <p class="section-sub">Negros 100% puros sin tonos grises intermedios para evitar manchas en papel térmico y cumplir con el límite de &lt; 30 KB.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="preview bg-paper">
+          <img src="./thermal-ticket/chronosoft-ticket-logo.png" alt="Ticket Stacked" />
+        </div>
+        <div class="card-body">
+          <div class="card-title">Ticket Térmico Clásico <span>400×227</span></div>
+          <div class="card-desc">Reemplazo exacto de <code>chronosoft-ticket-logo.png</code> con bordes vectoriales limpios.</div>
+          <div class="links">
+            <a class="btn" href="./thermal-ticket/chronosoft-ticket-logo.png" download>PNG Transparente</a>
+            <a class="btn" href="./thermal-ticket/chronosoft-ticket-logo.jpg" download>JPG Fondo Blanco</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="preview bg-paper">
+          <img src="./thermal-ticket/chronosoft-ticket-horizontal.png" alt="Ticket Horizontal" />
+        </div>
+        <div class="card-body">
+          <div class="card-title">Ticket Térmico Compacto (Ahorro Papel) <span>384×110</span></div>
+          <div class="card-desc">Diseño horizontal para tirillas de 58mm/80mm que reduce el largo del ticket a la mitad.</div>
+          <div class="links">
+            <a class="btn" href="./thermal-ticket/chronosoft-ticket-horizontal.png" download>PNG Transparente</a>
+            <a class="btn" href="./thermal-ticket/chronosoft-ticket-horizontal.jpg" download>JPG Fondo Blanco</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2>6. Paleta Oficial ChronoSoft</h2>
+    <p class="section-sub">Alineada con los tokens de <code>chrono-ui</code> y el acento dorado característico del monograma CS.</p>
+    <div class="swatches">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#38BDF8"></div>
+        <div class="swatch-info"><strong>Sky Cyan (Luz)</strong><code>#38BDF8</code></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#0284C7"></div>
+        <div class="swatch-info"><strong>Chrono Primary Blue</strong><code>#0284C7</code></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#0369A1"></div>
+        <div class="swatch-info"><strong>Deep Ocean Blue</strong><code>#0369A1</code></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:linear-gradient(135deg,#F6DAA8,#D49448)"></div>
+        <div class="swatch-info"><strong>Chrono Champagne Gold</strong><code>#EABA70 → #D49448</code></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#0F172A"></div>
+        <div class="swatch-info"><strong>Slate Indigo (Texto/Fondo)</strong><code>#0F172A</code></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#090D16"></div>
+        <div class="swatch-info"><strong>Dark Void Background</strong><code>#090D16</code></div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

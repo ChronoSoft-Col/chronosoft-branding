@@ -1,0 +1,29 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="-40 -40 897 736" width="1024" height="840">
+  <defs>
+    <linearGradient id="cs-blue-grad" x1="0%" y1="5%" x2="95%" y2="95%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="55%" stop-color="#0284C7" />
+      <stop offset="100%" stop-color="#0369A1" />
+    </linearGradient>
+    <linearGradient id="cs-bottom-gold" x1="0%" y1="90%" x2="90%" y2="0%">
+      <stop offset="0%" stop-color="#F2CC8C" stop-opacity="1" />
+      <stop offset="22%" stop-color="#E8BA73" stop-opacity="0.95" />
+      <stop offset="44%" stop-color="#AFA887" stop-opacity="0.55" />
+      <stop offset="65%" stop-color="#0284C7" stop-opacity="0" />
+      <stop offset="100%" stop-color="#0284C7" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="cs-top-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F6DAA8" />
+      <stop offset="55%" stop-color="#EABA70" />
+      <stop offset="100%" stop-color="#D49448" />
+    </linearGradient>
+    <linearGradient id="bg-dark-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#111C35" />
+      <stop offset="50%" stop-color="#0B1222" />
+      <stop offset="100%" stop-color="#060913" />
+    </linearGradient>
+  </defs>
+  <path d="M 511 447 L 388 447 C 368 502, 328 534, 275 534 C 185 534, 130 448, 130 328 C 130 208, 185 125, 275 125 C 332 125, 368 156, 375 204 C 382 285, 420 348, 550 376 C 658 400, 692 418, 692 464 C 692 512, 650 541, 590 541 C 560 541, 536 532, 519 517 C 504 555, 480 588, 449 614 C 490 642, 538 656, 590 656 C 725 656, 817 576, 817 464 C 817 340, 760 298, 650 276 C 540 254, 520 236, 518 198 C 508 82, 412 0, 275 0 C 112 0, 0 138, 0 328 C 0 518, 112 656, 275 656 C 405 656, 495 572, 511 447 Z" fill="url(#cs-blue-grad)" />
+  <path d="M 519 517 C 504 555, 480 588, 449 614 C 490 642, 538 656, 590 656 C 725 656, 817 576, 817 464 L 692 464 C 692 512, 650 541, 590 541 C 560 541, 536 532, 519 517 Z" fill="url(#cs-bottom-gold)" />
+  <path d="M 454 39 C 492 12, 538 2, 590 2 C 708 2, 795 80, 811 193 L 681 193 C 668 148, 635 124, 590 124 C 568 124, 548 129, 532 138 C 514 98, 487 64, 454 39 Z" fill="url(#cs-top-gold)" />
+</svg>
